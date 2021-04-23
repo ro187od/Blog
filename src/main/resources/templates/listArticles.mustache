@@ -1,0 +1,21 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Article</title>
+</head>
+<body>
+
+{{#articles}}
+    {{id}}
+    <p>{{text}}</p>
+    <i>{{creationDate}}</i>
+{{/articles}}
+{{^articles}}
+    No articles :(
+{{/articles}}
+<form action="article" method="post">
+    <input type="text" name="text" placeholder="Write an article">
+    <input type="submit" value="Done">
+</form>
+</body>
+</html>
