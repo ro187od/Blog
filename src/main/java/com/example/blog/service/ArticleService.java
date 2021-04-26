@@ -6,7 +6,7 @@ public interface ArticleService {
 
     public Iterable<Article> findAll();
 
-    public void remove(long id);
+    public void remove(Long id);
 
     public void save(String text);
 }

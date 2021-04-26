@@ -3,9 +3,11 @@ package com.example.blog.service;
 import com.example.blog.Repo.ArticlesRepo;
 import com.example.blog.model.Article;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class ArticleServiceImpl implements ArticleService{
     @Autowired
     private ArticlesRepo articlesRepo;
@@ -16,9 +18,8 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public void remove(long id) {
-        Article article = articlesRepo.findById(id);
-        articlesRepo.delete(article);
+    public void remove(Long id) {
+        articlesRepo.deleteById(id);
     }
 
     @Override
