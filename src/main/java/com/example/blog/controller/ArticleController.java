@@ -2,13 +2,11 @@ package com.example.blog.controller;
 
 import com.example.blog.Repo.ArticlesRepo;
 import com.example.blog.model.Article;
+import com.example.blog.service.ArticleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -16,21 +14,24 @@ import java.time.LocalDateTime;
 @RequestMapping("article")
 public class ArticleController {
     @Autowired
-    private ArticlesRepo articlesRepo;
+    private ArticleServiceImpl articleService;
 
     @GetMapping
     public String getAllArticle(Model model){
-        model.addAttribute("articles", articlesRepo.findAll());
+        model.addAttribute("articles", articleService.findAll());
         return "listArticles";
     }
 
     @PostMapping
     public String createArticle(@RequestParam String text, Model model){
-        Article article = new Article(text);
-        article.setCreationData(LocalDateTime.now());
-        articlesRepo.save(article);
-        model.addAttribute("articles", articlesRepo.findAll());
+        articleService.save(text);
+        model.addAttribute("articles", articleService.findAll());
         return "listArticles";
     }
 
+    @DeleteMapping("{id}")
+    public String deleteArticle(@PathVariable long id, Model model){
+        articleService.remove(id);
+        return "redirect:listArticles";
+    }
 }
